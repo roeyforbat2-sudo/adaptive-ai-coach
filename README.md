@@ -6,6 +6,10 @@ It runs on **Google Cloud** for free. It works from my phone with the PC switche
 
 > Built for a real training block: a half marathon followed by a full marathon, with 3 runs and 3 gym sessions a week.
 
+![The Today tab: race countdown, plan progress, the Coach's take on today's workout, and today, tomorrow and recovery cards](docs/screenshots/today.png)
+
+<sub>All screenshots use the built-in synthetic demo data and a made-up race; no real training data is shown.</sub>
+
 ---
 
 ## What it does
@@ -18,6 +22,19 @@ It runs on **Google Cloud** for free. It works from my phone with the PC switche
 | **Daily loop** | A **05:30 morning brief** with the day's workout, a **17:30 check-in** (RPE, soreness, sleep, pain or illness) and a **Saturday 20:00 weekly review** that covers this week against the plan and gives suggestions for next week. |
 | **Safety rules** | Deterministic rules (`engine.safety`) look at HRV against your personal range, resting HR against a 60-day baseline, sleep, jumps in run volume, and reported pain or illness. They always override any suggestion. |
 | **Live sync** | Garmin (official Personal API) and Google Calendar are synced on a schedule and on demand, read-only. |
+
+### Screenshots
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/overview.png" alt="Overview tab: last-7-days stats against the 4-week average, sleep, HRV, resting HR, weekly training time, upcoming workouts"><br><sub><b>Overview</b>: the last 7 days against your 4-week average, plus recovery and upcoming sessions</sub></td>
+    <td width="50%"><img src="docs/screenshots/running.png" alt="Running tab: weekly distance, pace trend with 28-day median, activity history"><br><sub><b>Running</b>: weekly distance, a pace trend with a 28-day median, and activity history</sub></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/calendar.png" alt="Training Calendar tab: planned vs completed grid, adherence, per-week bars, workout list"><br><sub><b>Training Calendar</b>: planned vs. completed and adherence</sub></td>
+    <td width="50%" align="center"><img src="docs/screenshots/phone-today.png" alt="The Today tab on a phone" width="260"><br><sub><b>On the phone</b>: the same app, served from Cloud Run behind Google sign-in</sub></td>
+  </tr>
+</table>
 
 Training-load numbers (ATL/CTL/TSB, ACWR) are shown as **descriptive indicators only**, never as injury predictions. Missing data stays missing: the app shows `incomplete` or `insufficient_baseline` rather than guessing.
 

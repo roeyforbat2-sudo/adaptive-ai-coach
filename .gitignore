@@ -1,0 +1,52 @@
+# --- Secrets & credentials (never commit) ---
+.env
+.env.*
+!.env.example
+secrets/
+client_secret*.json
+credentials*.json
+token*.json
+*.pem
+*.key
+*.p12
+
+# --- Local data (health data, never commit) ---
+data/
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.db
+*.db-journal
+*.fit
+exports/
+imports/
+backups/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.python-version
+
+# --- Tooling ---
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+.streamlit/secrets.toml
+
+# --- Logs ---
+logs/
+*.log
+
+# --- OS / editors ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

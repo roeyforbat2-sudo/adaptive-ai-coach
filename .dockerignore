@@ -1,0 +1,35 @@
+# Keep personal data, secrets and local clutter OUT of the cloud image.
+data/
+secrets/
+backups/
+logs/
+exports/
+imports/
+.env
+.env.*
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.db
+*.fit
+client_secret*.json
+credentials*.json
+token*.json
+*.pem
+*.key
+# development only
+.venv/
+.git/
+.github/
+tests/
+docs/
+scripts/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+**/__pycache__/
+*.py[cod]
+.claude/
+.coverage
+*.egg-info/
+CLAUDE.md

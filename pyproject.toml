@@ -1,0 +1,81 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "adaptive-ai-coach"
+version = "0.1.0"
+description = "Local-first adaptive AI coach for running and strength training"
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.7,<3",
+    "pydantic-settings>=2.3,<3",
+    # Windows has no system IANA timezone database; zoneinfo needs this package there.
+    "tzdata>=2024.1; sys_platform == 'win32'",
+    # Dashboard (Phase 2)
+    "streamlit>=1.40,<2",
+    "plotly>=5.24,<7",
+    "pandas>=2.2,<4",
+    # Integrations (Phase 3): secrets in Windows Credential Manager, Garmin HTTP, Google Calendar
+    "keyring>=25,<27",
+    "httpx>=0.27,<1",
+    "google-auth-oauthlib>=1.2,<2",
+    "google-api-python-client>=2.140,<3",
+    # AI coach (Phase 4)
+    "anthropic>=2.9,<3",
+    # Cloud (2026-11-18): Postgres (Neon) and verifying Google IAP's signed login header
+    "psycopg[binary]>=3.2,<4",
+    "requests>=2.31,<3",
+    "cryptography>=42",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2",
+    "pytest-cov>=5.0",
+    "ruff>=0.6",
+    "mypy>=1.11",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+coach = ["db/migrations/*.sql", "py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers --strict-config"
+markers = [
+    "slow: long-running tests (deselect with -m 'not slow')",
+    "postgres: needs COACH_TEST_DATABASE_URL (a disposable Postgres test database)",
+]
+filterwarnings = ["error"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "SIM", "RUF", "DTZ"]
+ignore = ["S101"]  # assert is fine in tests
+# Hebrew activity/calendar keywords and the multiplication sign are intentional.
+allowed-confusables = ["ט", "ס", "×", "ו", "–"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/coach/synthetic/*" = ["S311"]  # non-crypto RNG is intended for fake data
+"src/coach/ui/*" = ["RUF001"]  # typographic dashes and status emoji are intentional UI text
+"src/coach/ui/style.py" = ["E501"]  # CSS reads better unwrapped
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["pydantic.mypy"]
+mypy_path = "src"
+packages = ["coach"]
+
+[[tool.mypy.overrides]]
+# No bundled type information; treated as Any (pandas-stubs not installed on purpose).
+module = ["plotly.*", "pandas.*", "googleapiclient.*", "google_auth_oauthlib.*", "google.oauth2.*"]
+ignore_missing_imports = true
